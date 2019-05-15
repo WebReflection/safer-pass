@@ -1,0 +1,52 @@
+{
+  "name": "safer-pass",
+  "version": "0.0.0",
+  "description": "A safer and easy way to protect with password text or files.",
+  "main": "cjs/index.js",
+  "module": "esm/index.js",
+  "unpkg": "min.js",
+  "scripts": {
+    "build": "npm run cjs && npm run rollup && npm test && npm run min && npm run size",
+    "cjs": "ascjs esm cjs",
+    "coveralls": "cat ./coverage/lcov.info | coveralls",
+    "min": "echo '/*! (c) Andrea Giammarchi - ISC */' > min.js && uglifyjs index.js -c -m >> min.js",
+    "rollup": "rollup --config rollup.config.js",
+    "size": "cat index.js | wc -c;cat min.js | wc -c;gzip -c9 min.js | wc -c",
+    "test": "istanbul cover test/index.js"
+  },
+  "keywords": [
+    "secure",
+    "password",
+    "easy",
+    "encrypt",
+    "decrypt"
+  ],
+  "author": "Andrea Giammarchi",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WebReflection/safer-pass.git"
+  },
+  "bugs": {
+    "url": "https://github.com/WebReflection/safer-pass/issues"
+  },
+  "homepage": "https://github.com/WebReflection/safer-pass#readme",
+  "dependencies": {
+    "safer-crypto": "^0.1.2",
+    "safer-function": "^0.1.2",
+    "safer-promise": "^0.1.2",
+    "safer-text": "^0.1.2"
+  },
+  "devDependencies": {
+    "ascjs": "^3.0.1",
+    "coveralls": "^3.0.3",
+    "istanbul": "^0.4.5",
+    "node-webcrypto-ossl": "^1.0.44",
+    "rollup": "^1.11.3",
+    "rollup-plugin-node-resolve": "^4.2.4",
+    "uglify-es": "^3.3.9"
+  },
+  "directories": {
+    "test": "test"
+  }
+}
