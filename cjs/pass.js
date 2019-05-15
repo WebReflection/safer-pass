@@ -14,6 +14,13 @@ const setSecret = bind(secrets.set, secrets);
 const {subtle} = crypto;
 
 class Pass {
+
+  static unserialize(serializeed, password, salt) {
+    const {data, iv, str} = serializeed;
+    const pass = new Pass(password, IV.from(iv), salt);
+    return pass.decrypt(data, str);
+  }
+
   constructor(
     password,
     iv = new IV,
@@ -98,12 +105,6 @@ class Pass {
         };
       });
     });
-  }
-
-  static unserialize(serializeed, password, salt) {
-    const {data, iv, str} = serializeed;
-    const pass = new Pass(password, IV.from(iv), salt);
-    return pass.decrypt(data, str);
   }
 
 }

@@ -122,3 +122,65 @@ receive()
   )
   .then(console.log);
 ```
+
+# API
+
+There are two classes provided with this module, the `IV` one, and the `Pass` one.
+
+## IV
+
+```js
+class IV extends Uint8Array {
+
+  static from(value) {
+    // return an IV from a buffer or a string
+  }
+
+  constructor(length = 16) {
+    // creates an IV with length 16 by default
+  }
+
+  toString() {
+    // return a string representation of the IV
+  }
+}
+```
+
+
+## Pass
+
+```js
+class Pass {
+
+  static unserialize(serializeed, password, salt) {
+    // return a promise that resolves as decrypted data
+  }
+
+  constructor(
+    password,     // either a string or a buffer
+    iv = new IV,  // a random buffer to use
+    salt = '...'  // a salt to use, by default derived
+                  // via iv and password
+  ) {
+    // creates a frozen instance of Pass
+  }
+
+  decrypt(input, returnString = false) {
+    // return a promise with decrypted data
+    // either as buffer, or string
+  }
+
+  encrypt(input, returnString = false) {
+    // return a promise with encrypted data
+    // either as buffer, or string
+  }
+
+  serialize(input) {
+    // return a promise with an object
+    // usable to transfer data, being saved in a db
+    // or being posted via JSON.stringify
+  }
+
+}
+```
+

@@ -135,6 +135,13 @@ var saferPass = (function (exports) {
   const {subtle: subtle$1} = crypto$1;
 
   class Pass {
+
+    static unserialize(serializeed, password, salt) {
+      const {data, iv, str} = serializeed;
+      const pass = new Pass(password, IV.from(iv), salt);
+      return pass.decrypt(data, str);
+    }
+
     constructor(
       password,
       iv = new IV,
@@ -219,12 +226,6 @@ var saferPass = (function (exports) {
           };
         });
       });
-    }
-
-    static unserialize(serializeed, password, salt) {
-      const {data, iv, str} = serializeed;
-      const pass = new Pass(password, IV.from(iv), salt);
-      return pass.decrypt(data, str);
     }
 
   }
