@@ -1,6 +1,6 @@
 {
   "name": "safer-pass",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "A safer and easy way to protect with password text or files.",
   "main": "cjs/index.js",
   "module": "esm/index.js",
