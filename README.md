@@ -31,9 +31,9 @@ The least important thing is usually, and unfortunately, the _user password_, ke
 
 Both 'cause humans aren't too good at remembering long sentences, and mostly because every service online asks you to comply with absurd rules, we have our fingers print and our finances authenticated through a 4 to 6 digits pin. and yet if we chose passwords by ourselves, with our rules, they believe we're doomed.
 
-![https://xkcd.com/936/](https://imgs.xkcd.com/comics/password_strength.png)
+See [xkcd comic 936](https://xkcd.com/936/) to know more.
 
-Anyway, the first thing to realize is that our favorite, most complicated, password, isn't god enough, period.
+Anyway, the first thing to remember is that our favorite password is usually not god enough.
 
 
 ### The salt
