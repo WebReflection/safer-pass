@@ -32,9 +32,10 @@
   },
   "homepage": "https://github.com/WebReflection/safer-pass#readme",
   "dependencies": {
-    "safer-crypto": "^0.1.2",
+    "safer-class": "^0.2.0",
+    "safer-crypto": "^0.2.0",
     "safer-function": "^0.1.2",
-    "safer-promise": "^0.1.2",
+    "safer-promise": "^0.2.0",
     "safer-text": "^0.1.2"
   },
   "devDependencies": {

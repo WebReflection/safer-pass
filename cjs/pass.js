@@ -1,6 +1,7 @@
 'use strict';
+const saferClass = (m => m.__esModule ? /* istanbul ignore next */ m.default : /* istanbul ignore next */ m)(require('safer-class'));
 const crypto = (m => m.__esModule ? /* istanbul ignore next */ m.default : /* istanbul ignore next */ m)(require('safer-crypto'));
-const {Promise, resolve, reject} = require('safer-promise');
+const {Promise, reject} = require('safer-promise');
 const {bind} = require('safer-function');
 const {encode, decode} = require('safer-text');
 const {Uint8Array, arr2str, freeze, fromCharCode, str2arr} = require('./utils.js');
@@ -109,6 +110,7 @@ class Pass {
 
 }
 
+saferClass(Pass);
 freeze(Pass);
 freeze(Pass.prototype);
 

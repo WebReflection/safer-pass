@@ -7,9 +7,60 @@ var saferPass = (function (exports) {
   var apply = bind(call, call.apply);
   call = bind(call, call);
 
+  /*! (c) Andrea Giammarchi - ISC */
+
+  const {
+    defineProperty,
+    getPrototypeOf,
+    getOwnPropertyDescriptor,
+    getOwnPropertyNames,
+    getOwnPropertySymbols,
+    hasOwnProperty
+  } = Object;
+
+  const falsify = (descriptor, name) => {
+    defineProperty(descriptor, name, {
+      enumerable: true,
+      value: false
+    });
+  };
+
+  const updated = descriptor => {
+    falsify(descriptor, 'configurable');
+    if (call(hasOwnProperty, descriptor, 'writable'))
+      falsify(descriptor, 'writable');
+    return descriptor;
+  };
+
+  var saferObject = object => {
+    const self = object;
+    const names = [];
+    const descriptors = [];
+    do {
+      getOwnPropertyNames(object).concat(getOwnPropertySymbols(object))
+      .forEach(name => {
+        if (!names.includes(name)) {
+          names.push(name);
+          descriptors.push(getOwnPropertyDescriptor(object, name));
+        }
+      });
+    }
+    while (object = getPrototypeOf(object));
+    names.forEach((name, i) => {
+      defineProperty(self, name, updated(descriptors[i]));
+    });
+    return self;
+  };
+
+  /*! (c) Andrea Giammarchi - ISC */
+
+  var saferClass = Class => (
+    saferObject(Class.prototype),
+    saferObject(Class)
+  );
+
   const {freeze, setPrototypeOf} = Object;
-  const {prototype: _prototype, reject: _reject, resolve: _resolve} = Promise;
-  const {catch: _catch, then: _then} = _prototype;
+  const {reject: _reject, resolve: _resolve} = Promise;
 
   class SaferPromise extends Promise {
     static reject(value) {
@@ -20,12 +71,6 @@ var saferPass = (function (exports) {
     }
     constructor(fn) {
       freeze(super(fn));
-    }
-    catch() {
-      return apply(_catch, this, arguments);
-    }
-    then() {
-      return apply(_then, this, arguments);
     }
   }
 
@@ -39,12 +84,13 @@ var saferPass = (function (exports) {
       value
   );
 
+  saferClass(SaferPromise);
   freeze(SaferPromise);
   freeze(prototype);
 
   /*! (c) Andrea Giammarchi - ISC */
 
-  const {freeze: freeze$1, defineProperty, getOwnPropertyNames, getPrototypeOf} = Object;
+  const {freeze: freeze$1, defineProperty: defineProperty$1, getOwnPropertyNames: getOwnPropertyNames$1, getPrototypeOf: getPrototypeOf$1} = Object;
   const isMethod = (self, key) => (
     !/^(?:caller|callee|arguments)$/.test(key) &&
     typeof self[key] === 'function' &&
@@ -56,19 +102,19 @@ var saferPass = (function (exports) {
   const saferCrypto = {};
   const saferSubtle = {};
 
-  getOwnPropertyNames(getPrototypeOf(crypto)).forEach(key => {
+  getOwnPropertyNames$1(getPrototypeOf$1(crypto)).forEach(key => {
     if (isMethod(crypto, key)) {
-      defineProperty(saferCrypto, key, {
+      defineProperty$1(saferCrypto, key, {
         enumerable: true,
         value: bind(crypto[key], crypto)
       });
     }
   });
 
-  getOwnPropertyNames(getPrototypeOf(subtle)).forEach(key => {
+  getOwnPropertyNames$1(getPrototypeOf$1(subtle)).forEach(key => {
     if (isMethod(subtle, key)) {
       const method = subtle[key];
-      defineProperty(saferSubtle, key, {
+      defineProperty$1(saferSubtle, key, {
         enumerable: true,
         value() {
           return resolve(apply(method, subtle, arguments));
@@ -77,7 +123,7 @@ var saferPass = (function (exports) {
     }
   });
 
-  var crypto$1 = freeze$1(defineProperty(saferCrypto, 'subtle', {
+  var crypto$1 = freeze$1(defineProperty$1(saferCrypto, 'subtle', {
     enumerable: true,
     value: freeze$1(saferSubtle)
   }));
@@ -109,6 +155,7 @@ var saferPass = (function (exports) {
     }
   }
 
+  saferClass(IV);
   freeze$2(IV);
   freeze$2(IV.prototype);
 
@@ -230,6 +277,7 @@ var saferPass = (function (exports) {
 
   }
 
+  saferClass(Pass);
   freeze$2(Pass);
   freeze$2(Pass.prototype);
 

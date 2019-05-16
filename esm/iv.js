@@ -1,3 +1,4 @@
+import saferClass from 'safer-class';
 import crypto from 'safer-crypto';
 import {Uint8Array, arr2str, freeze, str2arr} from './utils.js';
 
@@ -19,6 +20,7 @@ class IV extends Uint8Array {
   }
 }
 
+saferClass(IV);
 freeze(IV);
 freeze(IV.prototype);
 

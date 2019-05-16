@@ -1,4 +1,5 @@
 'use strict';
+const saferClass = (m => m.__esModule ? /* istanbul ignore next */ m.default : /* istanbul ignore next */ m)(require('safer-class'));
 const crypto = (m => m.__esModule ? /* istanbul ignore next */ m.default : /* istanbul ignore next */ m)(require('safer-crypto'));
 const {Uint8Array, arr2str, freeze, str2arr} = require('./utils.js');
 
@@ -20,6 +21,7 @@ class IV extends Uint8Array {
   }
 }
 
+saferClass(IV);
 freeze(IV);
 freeze(IV.prototype);
 

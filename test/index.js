@@ -59,10 +59,10 @@ pass5.encrypt(encode('this is pass5 for pass6')).then(buff => {
 
 const pass7 = new Pass(password);
 pass7.encrypt(void 0).catch(error => {
-  console.log(error.message);
+  console.log('✔ ' + error.message);
 });
 pass7.decrypt(pass0encrypt).catch(error => {
-  console.log(error.message);
+  console.log('✔ ' + error.message);
 });
 
 pass0

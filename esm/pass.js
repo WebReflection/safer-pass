@@ -1,5 +1,6 @@
+import saferClass from 'safer-class';
 import crypto from 'safer-crypto';
-import {Promise, resolve, reject} from 'safer-promise';
+import {Promise, reject} from 'safer-promise';
 import {bind} from 'safer-function';
 import {encode, decode} from 'safer-text';
 import {Uint8Array, arr2str, freeze, fromCharCode, str2arr} from './utils.js';
@@ -108,6 +109,7 @@ class Pass {
 
 }
 
+saferClass(Pass);
 freeze(Pass);
 freeze(Pass.prototype);
 
