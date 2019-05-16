@@ -3,7 +3,7 @@ import crypto from 'safer-crypto';
 import {Promise, reject} from 'safer-promise';
 import {bind} from 'safer-function';
 import {encode, decode} from 'safer-text';
-import {Uint8Array, arr2str, freeze, fromCharCode, str2arr} from './utils.js';
+import {Uint8Array, arr2str, freeze, shuffle, str2arr} from './utils.js';
 import IV from './iv.js';
 
 const length = 256;
@@ -24,7 +24,7 @@ class Pass {
   constructor(
     password,
     iv = new IV,
-    salt = `${arr2str(iv)}${fromCharCode(password.length)}`
+    salt = shuffle(arr2str(iv), password)
   ) {
     if (typeof password === 'string')
       password = encode(password);

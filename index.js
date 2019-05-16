@@ -134,8 +134,19 @@ var saferPass = (function (exports) {
   const {map} = [];
   const U8A = Uint8Array;
 
+  const asChar = (i, len, str) => (i < len ? str[i] : fromCharCode(i));
+
   const arr2str = arr => apply(fromCharCode, null, arr);
   const str2arr = str => call(map, str, c => call(charCodeAt, c, 0));
+  const shuffle = (a, b) => {
+    const alen = a.length;
+    const blen = b.length;
+    const len = alen < blen ? blen : alen;
+    let out = "";
+    for (let i = 0; i < len; i++)
+      out = out + asChar(i, alen, a) + asChar(i, blen, b);
+    return out;
+  };
 
   class IV extends U8A {
 
@@ -192,7 +203,7 @@ var saferPass = (function (exports) {
     constructor(
       password,
       iv = new IV,
-      salt = `${arr2str(iv)}${fromCharCode(password.length)}`
+      salt = shuffle(arr2str(iv), password)
     ) {
       if (typeof password === 'string')
         password = encode(password);

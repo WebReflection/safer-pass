@@ -40,7 +40,7 @@ Anyway, the first thing to realize is that our favorite, most complicated, passw
 
 A _salt_ is usually `"a very long and unique string"` that a server, or a computer, but not usually a browser, is very good at keeping secret.
 
-A _salt_ is usually mandatory to avodi storing passwords in clear, but it's also not something you want to pass around.
+A _salt_ is usually mandatory to avoid storing passwords in clear, but it's also not something you want to pass around.
 
 Due to its controversial nature, this module provides a way to define a specific salt, but it's not in the ABC nature of this paragraph that you'll learn more about it.
 

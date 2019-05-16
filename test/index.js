@@ -70,3 +70,13 @@ pass0
   .then(serialized => Pass.unserialize(serialized, password))
   .then(console.log);
 
+
+const pass8 = new Pass('short');
+pass8.encrypt('this is pass8').then(buff => {
+  console.assert(typeof buff === 'object', 'pass8 can encrypt');
+  pass8.decrypt(buff).then(buff => {
+    console.assert(typeof buff === 'object', 'pass8 can decrypt');
+    console.assert('this is pass8' === decode(buff));
+    console.log(decode(buff));
+  });
+});
