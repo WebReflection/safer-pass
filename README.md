@@ -33,7 +33,7 @@ Both 'cause humans aren't too good at remembering long sentences, and mostly bec
 
 See [xkcd comic 936](https://xkcd.com/936/) to know more.
 
-Anyway, the first thing to remember is that our favorite password is usually not god enough.
+Anyway, the first thing to remember is that our favorite password is usually not good enough.
 
 
 ### The salt
