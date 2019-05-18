@@ -116,6 +116,7 @@ import {Pass} from 'safer-pass';
 receive()
   .then(
     data => Pass.unserialize(
+      data,
       password,
      'a secret and long salt'
     )
