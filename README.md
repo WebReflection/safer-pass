@@ -6,6 +6,10 @@
 
 A safer and easy way to protect with password text or files.
 
+#### v1 breaking change
+
+The `Pass` constructor signature is now `Pass(password[, salt[, iv]])`.
+
 
 ### Background
 
@@ -84,9 +88,11 @@ The 2 things that users need to know, one by heart, and one by their machine, is
 ```js
 import {IV, Pass} from 'safer-pass';
 
+const SALT = 'some-very-long-and-unique-secret';
+
 const sharedIV = new IV;
-const user1 = new Pass(password, sharedIV);
-const user2 = new Pass(password, sharedIV);
+const user1 = new Pass(password, SALT, sharedIV);
+const user2 = new Pass(password, SALT, sharedIV);
 
 // user1 can encrypt and user2 can decrypt data
 user1
@@ -104,10 +110,12 @@ Assuming both users know the same `password` and optionally, but recommended, th
 ```js
 // from user1 side
 import {Pass} from 'safer-pass';
+
+const SALT = 'some-very-long-and-unique-secret';
+
 const user1 = new Pass(
   password,
-  void 0,
-  'a secret and long salt'
+  SALT
 );
 user1.serialize('secret info').then(transfer);
 
@@ -118,7 +126,7 @@ receive()
     data => Pass.unserialize(
       data,
       password,
-     'a secret and long salt'
+      SALT
     )
   )
   .then(console.log);
@@ -159,9 +167,8 @@ class Pass {
 
   constructor(
     password,     // either a string or a buffer
-    iv = new IV,  // a random buffer to use
-    salt = '...'  // a salt to use, by default derived
-                  // via iv and password
+    salt = '...', // an optional salt to use
+    iv = new IV   // am optional random buffer to use
   ) {
     // creates a frozen instance of Pass
   }
@@ -184,4 +191,3 @@ class Pass {
 
 }
 ```
-

@@ -3,7 +3,7 @@ import crypto from 'safer-crypto';
 import {Promise, reject} from 'safer-promise';
 import {bind} from 'safer-function';
 import {encode, decode} from 'safer-text';
-import {Uint8Array, arr2str, freeze, shuffle, str2arr} from './utils.js';
+import {Uint8Array, arr2str, freeze, str2arr} from './utils.js';
 import IV from './iv.js';
 
 const length = 256;
@@ -17,14 +17,14 @@ class Pass {
 
   static unserialize(serializeed, password, salt) {
     const {data, iv, str} = serializeed;
-    const pass = new Pass(password, IV.from(iv), salt);
+    const pass = new Pass(password, salt, IV.from(iv));
     return pass.decrypt(data, str);
   }
 
   constructor(
     password,
-    iv = new IV,
-    salt = shuffle(arr2str(iv), password)
+    salt = method + length,
+    iv = new IV
   ) {
     if (typeof password === 'string')
       password = encode(password);

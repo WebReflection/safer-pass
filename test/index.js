@@ -32,8 +32,8 @@ pass1.encrypt('this is pass1', true).then(buff => {
 });
 
 const iv0 = new IV;
-const pass3 = new Pass(password, iv0, salt);
-const pass4 = new Pass(password, iv0, salt);
+const pass3 = new Pass(password, salt, iv0);
+const pass4 = new Pass(password, salt, iv0);
 pass3.encrypt('this is pass3 for pass4').then(buff => {
   pass4.decrypt(buff).then(buff => {
     console.assert('this is pass3 for pass4' === decode(buff));
@@ -48,8 +48,8 @@ console.assert(
 );
 
 const iv1 = new IV;
-const pass5 = new Pass(encode(password), iv1);
-const pass6 = new Pass(encode(password), iv1);
+const pass5 = new Pass(encode(password), void 0, iv1);
+const pass6 = new Pass(encode(password), void 0, iv1);
 pass5.encrypt(encode('this is pass5 for pass6')).then(buff => {
   pass6.decrypt(buff).then(buff => {
     console.assert('this is pass5 for pass6' === decode(buff));
