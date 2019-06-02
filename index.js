@@ -134,19 +134,8 @@ var saferPass = (function (exports) {
   const {map} = [];
   const U8A = Uint8Array;
 
-  const asChar = (i, len, str) => (i < len ? str[i] : fromCharCode(i));
-
   const arr2str = arr => apply(fromCharCode, null, arr);
   const str2arr = str => call(map, str, c => call(charCodeAt, c, 0));
-  const shuffle = (a, b) => {
-    const alen = a.length;
-    const blen = b.length;
-    const len = alen < blen ? blen : alen;
-    let out = "";
-    for (let i = 0; i < len; i++)
-      out = out + asChar(i, alen, a) + asChar(i, blen, b);
-    return out;
-  };
 
   class IV extends U8A {
 
@@ -196,14 +185,14 @@ var saferPass = (function (exports) {
 
     static unserialize(serializeed, password, salt) {
       const {data, iv, str} = serializeed;
-      const pass = new Pass(password, IV.from(iv), salt);
+      const pass = new Pass(password, salt, IV.from(iv));
       return pass.decrypt(data, str);
     }
 
     constructor(
       password,
-      iv = new IV,
-      salt = shuffle(arr2str(iv), password)
+      salt = method + length,
+      iv = new IV
     ) {
       if (typeof password === 'string')
         password = encode(password);

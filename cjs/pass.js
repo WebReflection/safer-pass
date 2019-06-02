@@ -4,7 +4,7 @@ const crypto = (m => m.__esModule ? /* istanbul ignore next */ m.default : /* is
 const {Promise, reject} = require('safer-promise');
 const {bind} = require('safer-function');
 const {encode, decode} = require('safer-text');
-const {Uint8Array, arr2str, freeze, shuffle, str2arr} = require('./utils.js');
+const {Uint8Array, arr2str, freeze, str2arr} = require('./utils.js');
 const IV = (m => m.__esModule ? /* istanbul ignore next */ m.default : /* istanbul ignore next */ m)(require('./iv.js'));
 
 const length = 256;
@@ -18,14 +18,14 @@ class Pass {
 
   static unserialize(serializeed, password, salt) {
     const {data, iv, str} = serializeed;
-    const pass = new Pass(password, IV.from(iv), salt);
+    const pass = new Pass(password, salt, IV.from(iv));
     return pass.decrypt(data, str);
   }
 
   constructor(
     password,
-    iv = new IV,
-    salt = shuffle(arr2str(iv), password)
+    salt = method + length,
+    iv = new IV
   ) {
     if (typeof password === 'string')
       password = encode(password);
