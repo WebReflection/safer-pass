@@ -4,6 +4,12 @@
 
 [![Build Status](https://travis-ci.com/WebReflection/safer-pass.svg?branch=master)](https://travis-ci.com/WebReflection/safer-pass) [![Coverage Status](https://coveralls.io/repos/github/WebReflection/safer-pass/badge.svg?branch=master)](https://coveralls.io/github/WebReflection/safer-promise?branch=master) ![WebReflection status](https://offline.report/status/webreflection.svg)
 
+- - -
+
+📢 **Update** I've created an even simpler/easier (yet not as secure) module that is way easier to use and reason about: https://github.com/WebReflection/password#readme
+
+- - -
+
 A safer and easy way to protect with password text or files.
 
 #### v1 breaking change
